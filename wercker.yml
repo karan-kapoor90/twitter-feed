@@ -16,6 +16,23 @@ build:
 # Push the docker image with our client built and tested app to docker hub 
 push-release:
   steps:
+    - carlsaturnino/docker-hub-push@1.0.2:
+      username: $DOCKER_USERNAME
+      password: $DOCKER_PASSWORD
+      email: $DOCKER_EMAIL
+      repository: $DOCKER_REPOSITORY
+      tag: $WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT
+      working-dir: /pipeline/source
+      ports: $PORT
+      env: PORT=$PORT
+      cmd: sh target/bin/start
+
+
+
+
+
+xpush-release:
+  steps:
     - internal/docker-push:
         username: $DOCKER_USERNAME
         password: $DOCKER_PASSWORD
